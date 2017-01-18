@@ -2,6 +2,7 @@ import collections
 from collections import defaultdict
 import operator
 import itertools
+import uuid
 
 try:
     from django.apps import apps
@@ -115,10 +116,19 @@ class Enrich(object):
 
     def _inject_objects(self, activities, objects, fields):
         for activity, field in itertools.product(activities, fields):
+            data = activity.activity_data
+
             if not self.is_ref(activity, field):
                 continue
+
             f_ct, f_id = activity[field].split(':')
+
+            if isinstance(list(objects[f_ct])[0], uuid.UUID):
+                # Parse identifier if it's a UUID
+                f_id = uuid.UUID(f_id)
+
             instance = objects[f_ct].get(f_id)
+
             if instance is None:
                 activity.track_not_enriched_field(field, activity[field])
             else:
