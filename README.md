@@ -1,5 +1,5 @@
 ##Stream Django
-[![Build Status](https://travis-ci.org/GetStream/stream-django.svg?branch=master)](https://travis-ci.org/GetStream/stream-django) [![Coverage Status](https://coveralls.io/repos/github/GetStream/stream-django/badge.svg?branch=master)](https://coveralls.io/github/GetStream/stream-django?branch=master) [![PyPI version](https://badge.fury.io/py/stream_django.svg)](http://badge.fury.io/py/stream_django)
+[![Build Status](https://travis-ci.org/GetStream/stream-django.svg?branch=master)](https://travis-ci.org/GetStream/stream-django) [![Coverage Status](https://coveralls.io/repos/github/GetStream/stream-django/badge.svg?branch=master)](https://coveralls.io/github/GetStream/stream-django?branch=master) [![PyPI version](https://badge.fury.io/py/stream-django.svg)](http://badge.fury.io/py/stream-django)
 
 This package helps you create activity streams & newsfeeds with Django and [GetStream.io](https://getstream.io).
 
@@ -152,8 +152,8 @@ The news feeds (or timelines) store the activities from the people you follow.
 There is both a simple timeline newsfeed (similar to twitter) and an aggregated version (like facebook).
 
 ```python
-timeline = feed_manager.get_news_feed(user_id)['timeline'] 
-timeline_aggregated = feed_manager.get_news_feed(user_id)['timeline_aggregated'] 
+timeline = feed_manager.get_news_feeds(user_id)['timeline'] 
+timeline_aggregated = feed_manager.get_news_feeds(user_id)['timeline_aggregated'] 
 
 ```
 #####Notification feed:
@@ -324,7 +324,7 @@ enriched_activities = enricher.enrich_activities(activities)
 
 The enrich class that comes with the packages tries to minimise the amount of database queries. The models are grouped by their class and then retrieved with a pk__in query. You can implement a different approach to retrieve the instances of a model subclassing the ```stream_django.enrich.Enrich``` class.
 
-To change the retrival for every model you should override the ```fetch_model_instances``` method; in alternative you can change how certain models' are retrieved by implementing the hook function ```fetch_<model_name>_instances```
+To change the retrieval for every model you should override the ```fetch_model_instances``` method; in alternative you can change how certain models' are retrieved by implementing the hook function ```fetch_<model_name>_instances```
 
 ```python
 class MyEnrich(Enrich):
